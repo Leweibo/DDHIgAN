@@ -1,0 +1,62 @@
+{
+  "age_at_biopsy": {
+    "mean": 35.71327588391141,
+    "std": 10.449728202269117,
+    "weighting": "one_observation_per_patient",
+    "n_patients": 9948
+  },
+  "gender": {
+    "mean": 0.531664656212304,
+    "std": 0.4989963422180132,
+    "weighting": "one_observation_per_patient",
+    "n_patients": 9948
+  },
+  "baseline_CREA": {
+    "mean": 1.0271844086989903,
+    "std": 0.4021260605766266,
+    "weighting": "one_observation_per_patient",
+    "n_patients": 9948
+  },
+  "baseline_CystatinC": {
+    "mean": 1.2382599580712785,
+    "std": 0.4363844105893896,
+    "weighting": "one_observation_per_patient",
+    "n_patients": 9540
+  },
+  "baseline_ALB": {
+    "mean": 40.682180610087585,
+    "std": 5.150791783012062,
+    "weighting": "one_observation_per_patient",
+    "n_patients": 9933
+  },
+  "baseline_log_PRO24H": {
+    "mean": -0.09433356205461162,
+    "std": 0.834970511664235,
+    "weighting": "one_observation_per_patient",
+    "n_patients": 9914
+  },
+  "CREA": {
+    "mean": 1.064939725867136,
+    "std": 0.502170468792962,
+    "weighting": "equal_total_weight_per_patient",
+    "n_patients": 9948
+  },
+  "CystatinC": {
+    "mean": 1.223161107019321,
+    "std": 0.5200604098448998,
+    "weighting": "equal_total_weight_per_patient",
+    "n_patients": 9942
+  },
+  "ALB": {
+    "mean": 44.34682408870605,
+    "std": 4.287903506175688,
+    "weighting": "equal_total_weight_per_patient",
+    "n_patients": 9948
+  },
+  "log_PRO24H": {
+    "mean": -0.5770380196156326,
+    "std": 0.8729301014504814,
+    "weighting": "equal_total_weight_per_patient",
+    "n_patients": 9948
+  }
+}

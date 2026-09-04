@@ -1,0 +1,50 @@
+{
+  "calibrator_version": "provisional_pooled_oof",
+  "deployment_source_sha256": {
+    "python/deephit/model.py": "2b9f947e5fef7afa9eb731af2583eeac0a6328342e66902dbaef47fb729b3126",
+    "python/deployment/ddhigan_api/app.py": "cb0f66a6c061abe5b5ae02160fa0670e702a704b40322980858fbcc25825b711",
+    "python/deployment/ddhigan_api/calibration.py": "847399f17dc5d2cc08d4a30337ac1c602559a37c7b5b825533dcd54fc654a90e",
+    "python/deployment/ddhigan_api/preprocessing.py": "e6d87402bc34922973e530a10f38d371088f8c1782069384f5f7186348c4ba64",
+    "python/deployment/ddhigan_api/runtime.py": "5d9e0b2b6ae0437ac87bd8c6ca7e7a664c66ef8a9a1ed6d02c339bd0eaa9773e",
+    "python/deployment/ddhigan_api/schemas.py": "0133221948ca7dc20feb9e3c92156337674186da2b299d7606ad87da17f37404",
+    "python/scripts/build_ddhigan_bootstrap_refit_bundle.py": "b50fa41dbabffebc2f019da931f3a6e25c6ccd8f0eace75545cafcc239b94ea7"
+  },
+  "input_artifact_sha256": {
+    "calibrator": "ace20c2d8a2c9e4ea91e677ef4a8a10e30fbf3a54903429719934a22feeafdde",
+    "checkpoint": "5e0cb1560bf9357c8be9df6885f142372a5355abe8445552d91fa23e66efd70d",
+    "normalization": "a74b864b90b2192e2d39e604b0f5c44ec0fa59f64fc83f8007861e4b9ec38091",
+    "training_summary": "fbdde2ebe92221c4d6c3342239cbd9e4281bda844301873c6dfcf63405afe9f6"
+  },
+  "model_version": "ddhigan-full-refit-20260824-e48-s316-predint-r1000-v1",
+  "point_artifact_sha256": {
+    "calibrator.json": "ace20c2d8a2c9e4ea91e677ef4a8a10e30fbf3a54903429719934a22feeafdde",
+    "input_contract.json": "12df63c813bcac277b236c9af46c6893f2ae2f7fe2d17b1a255f0040ef244bfb",
+    "model_config.json": "eb9a19d4fe6b38a32716f0fdf7a109b2d40d6c92e67bc0b623cae70c3e7cf8e4",
+    "model_weights.pt": "6ba305b81f22dee53e0796e10e64c3512f8e642dbc6e9763f2cb226b74f83dd0",
+    "normalization.json": "a74b864b90b2192e2d39e604b0f5c44ec0fa59f64fc83f8007861e4b9ec38091",
+    "provenance.json": "d6ffafa86ce030711e73b95ccee8427f4da639a12a5f4271a4d312ca58001ea7",
+    "reference_ranges.json": "b7d0361f13cc7c15be4b44435125b51e03c0bd0fd61f633b221639f362d9b3ef",
+    "software_versions.json": "b1c3d416709c4e5811dc5d945c3b6d8386f9d9fd08355f81bd7a2b112661af54"
+  },
+  "point_model_version": "ddhigan-full-refit-20260824-e48-s316",
+  "predictive_uncertainty_replicates": 1000,
+  "predictive_uncertainty_scope": "sampling_model_fitting_normalization_and_oob_calibration_uncertainty",
+  "predictive_uncertainty_version": "ddhigan_bootstrap_refit_predictive_uncertainty_v1",
+  "role": "research clinical pilot; not independent validation evidence",
+  "source_sha256": {
+    "python/deephit/config_full_refit_fixed_epochs_physv11_20260824.yaml": "94f6037f26baa75d28143fbd047d3877a98afeb5944c17fe8013af44ca0fac53",
+    "python/deephit/model.py": "2b9f947e5fef7afa9eb731af2583eeac0a6328342e66902dbaef47fb729b3126",
+    "python/deephit/train.py": "9496fe6f3bf3042a460a24e1dedc7c20031652a67c3ba52e816f338ad93a2eb5",
+    "python/deployment/ddhigan_api/app.py": "cb0f66a6c061abe5b5ae02160fa0670e702a704b40322980858fbcc25825b711",
+    "python/deployment/ddhigan_api/preprocessing.py": "e6d87402bc34922973e530a10f38d371088f8c1782069384f5f7186348c4ba64",
+    "python/deployment/ddhigan_api/runtime.py": "cf61af2541820a9601810a16886644b579165e3caa91fbcb89904ac10690a7c8",
+    "python/deployment/ddhigan_api/schemas.py": "0133221948ca7dc20feb9e3c92156337674186da2b299d7606ad87da17f37404"
+  },
+  "training": {
+    "checkpoint_epoch": 48,
+    "epochs": 48,
+    "patients": 9948,
+    "seed": 316,
+    "validation_set": null
+  }
+}
