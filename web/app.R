@@ -1,7 +1,7 @@
 options(shiny.maxRequestSize = 1 * 1024^2)
 
-env_file <- Sys.getenv("DDHIGAN_WEB_ENV_FILE", unset = "")
-if (nzchar(env_file) && file.exists(env_file)) readRenviron(env_file)
+env_file <- Sys.getenv("DDHIGAN_WEB_ENV_FILE", "/etc/ddhigan-web/environment")
+if (file.exists(env_file)) readRenviron(env_file)
 if (!nzchar(Sys.getenv("DDHIGAN_HISTORY_LMM_PATH", unset = ""))) {
   Sys.setenv(DDHIGAN_HISTORY_LMM_PATH = file.path(
     "data", "ddhigan_history_lmm_physv11_20260904.rds"
@@ -36,7 +36,7 @@ web_text <- list(
     history = "历史轨迹", risk = "未来 10 年风险", disclosure = "数据与模型说明",
     disclosure_1 = "自然样条线性混合模型仅用于描述性历史可视化，不参与 DDHIgAN 风险推理。随机样条系数采用原 IgAN-JM 的 pdDiag 独立协方差结构；观测较少时曲线主要收缩至总体趋势。",
     disclosure_2 = "历史曲线不向未来或训练范围外外推，也不校正信息性失访或结局前随访终止，不用于因果病程解释。风险曲线由独立的 DDHIgAN API 返回。",
-    risk_note = "红线为校准后的个体风险预测曲线；浅红阴影为该患者风险预测的 95% 点态 bootstrap 区间，表示在重复抽样并重新训练、标准化及 OOB 校准时预测值的变动范围。该区间未涵盖未测量因素、模型设定偏差及不同应用人群带来的不确定性。",
+    risk_note = "曲线为所选模型五折预测的平均值，未作额外再校准。此部署平均预测不同于内部验证中的单个留出折预测；不显示个体置信区间，也不把折间差异解释为个体不确定性。",
     need_confirm = "必须确认预测时点无 kidney failure (ESKD)。", calculating = "正在验证并计算……",
     visit_count = "访视数必须为 1–256。", time_error = "访视时间必须从 0 开始、非负并严格递增。",
     marker_error = "每次访视至少需要一个有限、非负指标值。", baseline_marker_error = "活检时首行的 CREA、Cystatin C、ALB 和 PRO24H 均为必填的非负数值。", static_error = "活检年龄必须为 0–120 岁的有限数值。",
@@ -54,7 +54,7 @@ web_text <- list(
     history = "History", risk = "Future 10-year risk", disclosure = "Data and model notes",
     disclosure_1 = "Natural-spline linear mixed models are used only for descriptive history visualization and do not enter DDHIgAN risk inference. Random spline coefficients use the original IgAN-JM pdDiag independent covariance structure; sparse histories shrink mainly toward the population trend.",
     disclosure_2 = "History curves are not extrapolated into the future or beyond the training range and do not correct informative dropout or follow-up termination before the endpoint. They are not causal disease-course estimates. The risk curve is returned independently by the DDHIgAN API.",
-    risk_note = "The red line is the calibrated individualized risk-prediction curve. The light-red band is the 95% pointwise bootstrap interval for this patient's risk prediction, showing how the prediction varies across repeated sampling, model refitting, standardization, and OOB calibration. It does not include uncertainty from unmeasured factors, model misspecification, or differences between application populations.",
+    risk_note = "The curve averages predictions from the five saved folds of the selected model, without additional recalibration. This deployment average differs from the held-out-fold predictor used in internal validation. No individual confidence interval is shown; fold variation is not an individual uncertainty interval.",
     need_confirm = "Confirm that kidney failure (ESKD) has not occurred by the prediction time.", calculating = "Validating inputs and calculating…",
     visit_count = "The visit table must contain 1–256 rows.", time_error = "Visit time must start at 0, be nonnegative, and increase strictly.",
     marker_error = "Every visit needs at least one finite, nonnegative marker value.", baseline_marker_error = "CREA, Cystatin C, ALB, and PRO24H are all required as nonnegative values in the at-biopsy row.", static_error = "Age at biopsy must be a finite value from 0 to 120 years.",
@@ -131,6 +131,7 @@ server <- function(input, output, session) {
     text <- txt()
     tagList(
       titlePanel(text$title), div(class = "notice", text$notice),
+      div(class = "card", selectInput("model_id", if (lang() == "en") "Prediction model" else "预测模型", choices = c("DDHIgAN", "DDHIgAN-CysC-free"), selected = current_value("model_id", "DDHIgAN"))),
       div(class = "card", h4(text$baseline), fluidRow(
         column(6, numericInput("age", paste0(text$age, if (lang() == "en") " (years)" else "（岁）"), current_value("age", 40), min = 0, max = 120)),
         column(6, selectInput("sex", text$sex, c(setNames("female", text$female), setNames("male", text$male)), selected = current_value("sex", "female")))
@@ -159,14 +160,14 @@ server <- function(input, output, session) {
       tags$td(if (row == 1L) text$at_biopsy else paste(text$post_biopsy, row - 1L)),
       tags$td(if (row == 1L) tags$span(class = "fixed-zero", "0") else visit_input("visit_time_", row, default_at("time", row))),
       tags$td(visit_input("visit_crea_", row, default_at("crea", row))),
-      tags$td(visit_input("visit_cysc_", row, default_at("cysc", row))),
+      if (!identical(input$model_id, "DDHIgAN-CysC-free")) tags$td(visit_input("visit_cysc_", row, default_at("cysc", row))),
       tags$td(visit_input("visit_alb_", row, default_at("alb", row))),
       tags$td(visit_input("visit_pro_", row, default_at("pro", row)))
     ))
     div(class = "input-table-wrap", tags$table(class = "input-table visit-table",
       tags$thead(tags$tr(
         tags$th(text$visit_no), tags$th(paste0(text$time, " (years)")),
-        tags$th("CREA (mg/dL)"), tags$th("Cystatin C (mg/L)"),
+        tags$th("CREA (mg/dL)"), if (!identical(input$model_id, "DDHIgAN-CysC-free")) tags$th("Cystatin C (mg/L)"),
         tags$th("ALB (g/L)"), tags$th("PRO24H (g/24h)")
       )), tags$tbody(rows)
     ))
@@ -184,10 +185,12 @@ server <- function(input, output, session) {
     }, numeric(1))
     data.frame(
       time_years = get_col("visit_time_", 0), creatinine_mg_dl = get_col("visit_crea_"),
-      cystatin_c_mg_l = get_col("visit_cysc_"), albumin_g_l = get_col("visit_alb_"),
+      cystatin_c_mg_l = if (identical(input$model_id, "DDHIgAN-CysC-free")) rep(NA_real_, n) else get_col("visit_cysc_"), albumin_g_l = get_col("visit_alb_"),
       proteinuria_g_24h = get_col("visit_pro_"), check.names = FALSE
     )
   }
+
+  observeEvent(input$model_id, { result(NULL); status("") }, ignoreInit = TRUE)
 
   observeEvent(input$predict, {
     text <- txt()
@@ -207,9 +210,11 @@ server <- function(input, output, session) {
         proteinuria_g_24h = visits$proteinuria_g_24h[[1L]]
       )
       if (!is.finite(static$age_at_biopsy_years) || static$age_at_biopsy_years < 0 || static$age_at_biopsy_years > 120) stop(text$static_error, call. = FALSE)
-      baseline_markers <- unlist(static[c("creatinine_mg_dl", "cystatin_c_mg_l", "albumin_g_l", "proteinuria_g_24h")], use.names = FALSE)
+      fields <- c("creatinine_mg_dl", "albumin_g_l", "proteinuria_g_24h")
+      if (!identical(input$model_id, "DDHIgAN-CysC-free")) fields <- c(fields, "cystatin_c_mg_l")
+      baseline_markers <- unlist(static[fields], use.names = FALSE)
       if (any(!is.finite(baseline_markers)) || any(baseline_markers < 0)) stop(text$baseline_marker_error, call. = FALSE)
-      prediction <- ddhigan_predict(static, visits, tail(visits$time_years, 1L))
+      prediction <- ddhigan_predict(static, visits, tail(visits$time_years, 1L), model_id = input$model_id)
       history_spec <- ddhigan_history_plot_spec(
         visits, prediction$history_processing, tail(visits$time_years, 1L)
       )
@@ -244,7 +249,9 @@ server <- function(input, output, session) {
     text <- txt()
     prediction <- result()$prediction
     tagList(
+      p(strong(if (lang() == "en") "Selected model: " else "所选模型："), prediction$model_id),
       p(strong(text$model_version), prediction$model_version),
+      if (isTRUE(prediction$warnings$out_of_distribution)) p(prediction$warnings$late_followup_extrapolation),
       p(strong(text$api_version), prediction$api_release),
       p(strong(text$risk3), scales::percent(prediction$risk_3y, accuracy = 0.1)),
       p(strong(text$risk5), scales::percent(prediction$risk_5y, accuracy = 0.1)),

@@ -176,21 +176,11 @@ ddhigan_draw_history_plots <- function(history_spec, lmm_artifact, language = "z
 ddhigan_prepare_risk_series <- function(curve) {
   years <- suppressWarnings(as.numeric(curve$years))
   risk <- suppressWarnings(as.numeric(curve$risk))
-  lower <- suppressWarnings(as.numeric(curve$predictive_uncertainty_lower))
-  upper <- suppressWarnings(as.numeric(curve$predictive_uncertainty_upper))
-  valid <- length(years) == length(risk) && length(years) > 1L &&
-    length(lower) == length(years) && length(upper) == length(years) &&
-    all(is.finite(years)) && all(is.finite(risk)) &&
-    all(is.finite(lower)) && all(is.finite(upper)) &&
-    all(diff(years) > 0) && all(years > 0 & years <= 10) &&
-    all(risk >= 0 & risk <= 1) && all(lower >= 0) && all(upper <= 1) &&
-    all(lower <= upper)
-  if (!valid) stop("风险曲线或预测不确定性区间数据不可用。", call. = FALSE)
-  list(
-    api_years = years, api_risk = risk, api_lower = lower, api_upper = upper,
-    years = c(0, years), risk = c(0, risk),
-    lower = c(0, lower), upper = c(0, upper)
-  )
+  valid <- length(years) == 10L && identical(years, as.numeric(1:10)) &&
+    length(risk) == length(years) && all(is.finite(risk)) &&
+    all(risk >= 0 & risk <= 1) && all(diff(risk) >= -1e-12)
+  if (!valid) stop("Risk curve is unavailable or invalid.", call. = FALSE)
+  list(api_years = years, api_risk = risk, years = c(0, years), risk = c(0, risk))
 }
 
 ddhigan_draw_risk_plot <- function(risk_series, language = "zh") {
@@ -211,19 +201,6 @@ ddhigan_draw_risk_plot <- function(risk_series, language = "zh") {
   graphics::abline(v = 0:10, col = "#F2F3F4", lwd = 0.8)
   graphics::axis(1, at = 0:10)
   graphics::axis(2, at = seq(0, 1, by = 0.1), labels = paste0(seq(0, 100, by = 10), "%"))
-  graphics::polygon(
-    c(risk_series$years, rev(risk_series$years)),
-    c(risk_series$lower, rev(risk_series$upper)),
-    col = grDevices::adjustcolor("#D62728", alpha.f = 0.18), border = NA
-  )
   graphics::lines(risk_series$years, risk_series$risk, lwd = 2.5, col = "#D62728")
-  graphics::lines(
-    risk_series$years, risk_series$lower, lwd = 0.8,
-    col = grDevices::adjustcolor("#D62728", alpha.f = 0.55)
-  )
-  graphics::lines(
-    risk_series$years, risk_series$upper, lwd = 0.8,
-    col = grDevices::adjustcolor("#D62728", alpha.f = 0.55)
-  )
   graphics::box(col = "#B8BEC4")
 }

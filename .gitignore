@@ -35,3 +35,7 @@ model-bundle/*
 !model-bundle/software_versions.json
 predictions/
 patient-data/
+
+!model-bundle/latest_manifest.json
+!model-bundle/core_weights.pt
+!model-bundle/cysc_free_weights.pt

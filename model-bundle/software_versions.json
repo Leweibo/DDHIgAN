@@ -1,6 +1,0 @@
-{
-  "numpy": "1.26.4",
-  "platform": "Linux-3.10.0-1127.el7.x86_64-x86_64-with-glibc2.17",
-  "python": "3.10.4",
-  "torch": "2.0.1+cu117"
-}

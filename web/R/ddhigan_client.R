@@ -11,8 +11,14 @@ ddhigan_api_settings <- function() {
 }
 
 ddhigan_predict <- function(static, visits, query_time_years,
+                            model_id = "DDHIgAN",
                             connect_timeout_seconds = 2,
                             response_timeout_seconds = 60) {
+  if (!model_id %in% c("DDHIgAN", "DDHIgAN-CysC-free")) stop("Unknown model", call. = FALSE)
+  if (identical(model_id, "DDHIgAN-CysC-free")) {
+    static$cystatin_c_mg_l <- NULL
+    visits$cystatin_c_mg_l <- NULL
+  }
   settings <- ddhigan_api_settings()
   allowed_static <- c("age_at_biopsy_years", "sex", "creatinine_mg_dl",
                       "cystatin_c_mg_l", "albumin_g_l", "proteinuria_g_24h")
@@ -28,6 +34,7 @@ ddhigan_predict <- function(static, visits, query_time_years,
   }))
   payload <- list(
     schema_version = "1.0",
+    model_id = model_id,
     query_time_years = unname(query_time_years),
     kidney_failure_free_at_query = TRUE,
     static = static[allowed_static[allowed_static %in% names(static)]],

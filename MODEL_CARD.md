@@ -1,42 +1,31 @@
-# DDHIgAN model card
+# Current DDHIgAN model card
 
-## Summary
+Release: physv15-rankzero-selectable-20260912.
 
-DDHIgAN is a biopsy-centered Dynamic-DeepHit model for future kidney failure
-(ESKD) risk in IgA nephropathy. The clinical model uses age at biopsy, sex,
-creatinine, cystatin C, albumin, 24-hour urine protein, and their available
-longitudinal trajectories.
+Two separately trained predictor sets are available: DDHIgAN and
+DDHIgAN-CysC-free. The latter removes all cystatin C input and auxiliary-output
+channels. Both use 11-year internal support and 1/0/1 likelihood/ranking/
+longitudinal loss weights. The confirmed source cohort contains 9,947 patients.
 
-## Evidence and intended use
+Predictions average five saved fold models with fold-specific standardization.
+No full-cohort refit, additional recalibration, or bootstrap uncertainty fit
+was performed for this deployment. Individual confidence intervals are not
+available. Fold variation must not be interpreted as such an interval.
+Internal validation used held-out-fold predictions, not this deployment mean.
 
-The model was internally validated in a retrospective single-center cohort of
-9,948 patients with biopsy-confirmed IgA nephropathy. It is intended for
-research demonstration and methods evaluation only.
+Mean internally validated AUC10 was 0.902 for DDHIgAN and 0.899 for CysC-free.
+CysC-free had slightly lower mean discrimination; IBS and calibration
+differences were uncertain. These findings support further evaluation as a
+potential alternative where cystatin C is unavailable, not equivalence or
+clinical replacement. Neither version has external or prospective validation.
 
-It has not undergone external validation, prospective evaluation,
-transportability assessment, subgroup safety assessment, decision-curve
-analysis, or clinical-utility testing. Outputs are not treatment
-recommendations, validated thresholds, or medical advice.
+Inputs: age, sex, biopsy-time and longitudinal creatinine, albumin and
+positive log-proteinuria; the core also uses cystatin C. No identifiers or dates.
+Query is the latest actual visit; histories start at biopsy, and the latest
+30 of at most 256 records are encoded. Future records are rejected. Query
+times greater than five years are marked as extrapolation. Output: monotonic
+future 1–10-year ESKD risk. No treatment advice or validated risk threshold.
 
-## Input and output contract
-
-- The first longitudinal row is the biopsy-time anchor (`t = 0`).
-- Every observation must be at or before the query time; future leakage is
-  rejected.
-- The public schema accepts 1–256 visits and encodes the most recent 30 using
-  the true interval at the truncation boundary.
-- The query time equals the latest actual visit.
-- The API returns a monotonic future 1–10-year kidney-failure risk curve and a
-  pointwise 95% bootstrap prediction interval.
-- Query times beyond five years after biopsy are explicitly labelled as
-  extrapolation beyond the internal-validation range.
-
-The public request schema prohibits names, record numbers, dates, and other
-patient identifiers.
-
-## Distribution
-
-This repository publishes architecture, API and web-client source together with
-the validated inference weights and aggregate normalization, calibration, and
-predictive-uncertainty artifacts. The bundle contains no optimizer state,
-training rows, patient-level predictions, identifiers, or source clinical data.
+See model-bundle/latest_manifest.json for tensor and scaler lineage, original
+checkpoint hashes, and fixed aggregation. Weights are CC BY-NC 4.0; code is
+Apache-2.0. No clinical data are distributed.

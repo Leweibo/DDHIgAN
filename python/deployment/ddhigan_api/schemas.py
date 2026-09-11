@@ -38,6 +38,7 @@ class Visit(Biomarkers):
 class PredictionRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
+    model_id: Literal["DDHIgAN", "DDHIgAN-CysC-free"] = "DDHIgAN"
     schema_version: Literal["1.0"]
     query_time_years: float = Field(ge=0)
     kidney_failure_free_at_query: Literal[True]
@@ -59,6 +60,9 @@ class PredictionRequest(BaseModel):
             raise ValueError("future visits are prohibited")
         if not math.isclose(times[-1], self.query_time_years, abs_tol=1e-8):
             raise ValueError("query time must equal the last actual visit")
+        if self.model_id == "DDHIgAN-CysC-free":
+            if self.static.cystatin_c_mg_l is not None or any(v.cystatin_c_mg_l is not None for v in self.visits):
+                raise ValueError("CysC-free requests must omit cystatin C")
         last = self.visits[-1]
         if all(value is None for name, value in last if name != "time_years"):
             raise ValueError("the query visit must contain at least one biomarker")

@@ -5,6 +5,7 @@ import logging
 import os
 import time
 import uuid
+from pathlib import Path
 
 from fastapi import Depends, FastAPI, Header, HTTPException, Request
 from fastapi.responses import JSONResponse
@@ -21,7 +22,12 @@ app = FastAPI(
 runtime = None
 startup_error = None
 try:
-    runtime = DDHIgANRuntime(os.environ["DDHIGAN_BUNDLE_DIR"])
+    bundle = os.environ["DDHIGAN_BUNDLE_DIR"]
+    if (Path(bundle) / "latest_manifest.json").exists():
+        from .latest_runtime import LatestRuntime
+        runtime = LatestRuntime(bundle)
+    else:
+        runtime = DDHIgANRuntime(bundle)
 except Exception as exc:  # readiness reports failure without leaking path/details
     startup_error = type(exc).__name__
 def require_api_key(x_api_key: str | None = Header(default=None)) -> None:
@@ -77,4 +83,6 @@ def model_info():
 def predict(payload: PredictionRequest):
     if runtime is None:
         raise HTTPException(status_code=503, detail="model unavailable")
+    if payload.model_id != "DDHIgAN" and not hasattr(runtime, "models"):
+        raise HTTPException(status_code=422, detail="selected model unavailable")
     return runtime.predict(payload)

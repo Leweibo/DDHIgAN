@@ -1,75 +1,57 @@
 # DDHIgAN
 
-Source release for the DDHIgAN Dynamic-DeepHit research model, its protected
-FastAPI inference service, and the identifier-free Posit Connect Cloud Shiny
-client.
+Source and inference weights for the DDHIgAN research model and identifier-free
+Shiny application: https://lewb-ddhigan.share.connect.posit.cloud/
 
-Live research demonstration:
-https://lewb-ddhigan.share.connect.posit.cloud/
+## Current release
 
-DDHIgAN estimates future kidney failure (ESKD) risk in biopsy-confirmed IgA
-nephropathy from biopsy-time minimal-core clinical variables and longitudinal
-marker history. It is a retrospective research model, not a medical device or
-a substitute for clinical judgment.
+`physv15-rankzero-selectable-20260912` provides an explicit choice of **DDHIgAN**
+or **DDHIgAN-CysC-free**. Both use the confirmed 9,947-patient source, 11-year
+internal support, seed 316, and likelihood/ranking/longitudinal weights 1/0/1.
+CysC-free omits biopsy and longitudinal cystatin C, its missingness channel,
+and its auxiliary prediction output. Select it explicitly; it is not an
+automatic fallback.
 
-## Repository contents
+Deployment averages predictions from the five saved folds, each using its own
+normalization. Internal validation used the held-out fold for each patient;
+its reported performance does not directly validate this deployment average.
+No additional recalibration or individual confidence interval is supplied.
+The earlier release remains available in Git history.
 
-- `python/deephit/model.py`: Dynamic-DeepHit architecture.
-- `python/deployment/ddhigan_api/`: authenticated, metadata-only-logging v1
-  inference API and input validation.
-- `python/utils/time_grid.py`: half-year discrete-time grid.
-- `web/`: bilingual R Shiny client used by the public Connect Cloud app.
-- `tests/`: identifier-free API and history-window contract tests.
-
-The validated production inference bundle is included under `model-bundle/`.
-Its two `.pt` files are stored with Git LFS. The bundle contains model weights
-and aggregate normalization, calibration, uncertainty, contract, provenance,
-and checksum metadata. It contains no training rows, patient data, clinical
-text, embeddings, identifiers, or patient-level predictions.
-
-Credentials, private deployment configuration, the parent research project,
-and raw or processed cohort data are intentionally not included.
-
-## Web client
-
-The Shiny client accepts no patient names, identifiers, or dates. Configure its
-backend only through server-side environment variables:
-
-```text
-DDHIGAN_API_URL=https://your-api.example/
-DDHIGAN_API_KEY=replace-with-a-server-side-secret
-```
-
-Never place the values in source files or `manifest.json`. From `web/`, run:
-
-```r
-shiny::runApp()
-```
-
-For Posit Connect Cloud, publish `web/manifest.json` and configure the two
-variables as Secret Variables.
-
-## API development
+## Run the API
 
 ```bash
 python -m pip install -r requirements-api.txt
-python -m unittest tests.test_ddhigan_api_allhistory_v1 -v
+# Set a private DDHIGAN_API_KEY through the environment.
+export DDHIGAN_BUNDLE_DIR=model-bundle
+uvicorn python.deployment.ddhigan_api.app:app --host 127.0.0.1 --port 8091
 ```
 
-At runtime, provide `DDHIGAN_BUNDLE_DIR=model-bundle` and `DDHIGAN_API_KEY`
-through server-side configuration or a secret manager. Verify the bundle first:
+Send `model_id` as `DDHIgAN` (default) or `DDHIgAN-CysC-free` to
+`POST /ddhigan/v1/predict`, with the existing `X-API-Key` authentication.
+CysC-free requests must omit cystatin C or set it to null.
+`GET /v1/model-info` lists available models; `/health/ready` checks readiness.
+
+The contract accepts 1–256 identifier-free, date-free visits, starting at
+biopsy (`t=0`), with strictly increasing times. Query time is the last real
+visit. The latest 30 records are encoded with the training encoder's zero first interval after truncation. Proteinuria uses the natural log for positive values; zero is
+missing. Output is future 1–10-year ESKD risk. Queries after year 5 are labelled
+as extrapolation beyond the internal-validation range.
+
+## Web client and verification
+
+Run `shiny::runApp("web")` with server-side `DDHIGAN_API_URL` and
+`DDHIGAN_API_KEY`. Never store secrets in source or dependency manifests.
 
 ```bash
 (cd model-bundle && sha256sum -c SHA256SUMS)
+DDHIGAN_BUNDLE_DIR=model-bundle python -m unittest tests.test_latest_selectable_api -v
 ```
 
-The input contract permits 1–256 biopsy-anchored visits, encodes the most recent
-30, rejects future observations and identifiers, and labels query times beyond
-five years as research extrapolation.
+The bundle contains only inference tensors and aggregate normalization and
+provenance metadata. Training rows, identifiers, patient predictions,
+optimizer state, clinical text, and credentials are excluded.
 
-## License
-
-Source code is available under the Apache License 2.0. Model weights are
-separately licensed for noncommercial research use under CC BY-NC 4.0; see
-`WEIGHTS_LICENSE.md`. No clinical-data license is granted because no clinical
-data is included.
+Source: Apache-2.0. Weights: CC BY-NC 4.0, noncommercial research use.
+This retrospective single-center research demonstration is not a medical
+device, clinical decision rule, or substitute for clinical judgment.
