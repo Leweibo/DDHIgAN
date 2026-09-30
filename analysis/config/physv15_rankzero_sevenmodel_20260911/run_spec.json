@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "standard": "physv15_rankzero_sevenmodel_20260911",
+  "status": "AUTHORIZED_PENDING_COMPUTATION_AND_RESULT_CONFIRMATION",
+  "authorization_date": "2026-09-11",
+  "authorization": "User implementation plan restores CysC-free as seventh formal model; new results require confirmation before Word integration",
+  "dataset": "physv15_outcome_recheck_9947_20260908",
+  "release_manifest_sha256": "d2ddd4b402568e4371fda34e23b5135ce7e5a47185ccf72fed5b13e8feb2f20b",
+  "internal_residual_support_years": 11,
+  "event_bins": 22,
+  "interval_width_years": 0.5,
+  "input_time_scale_years": 10,
+  "external_horizons_years": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "query_times_years": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "recency": {
+    "maximum_years": 1,
+    "boundary_inclusive": true,
+    "scope": "evaluation only; all seven models share patient eligibility",
+    "definition": "query minus last actual record at or before query; not per-marker freshness"
+  },
+  "risk_set_counts": [
+    9947,
+    9932,
+    8661,
+    7796,
+    7155,
+    6632
+  ],
+  "core_model_reused": true,
+  "new_fits": {
+    "cysc_free": 5
+  },
+  "reused_clinical_models": [
+    "Baseline Cox",
+    "PCCox",
+    "DynForest"
+  ],
+  "config_sha256": {
+    "cysc_free.yaml": "a3b3788198838305d2aa340c8f314b0ff011cde940e6291b68934685a3b68330"
+  },
+  "bootstrap": {
+    "replicates": 2000,
+    "seed": 316,
+    "shared_draw_sha256": "88222ce77f8cd1ad9afc0ccca3bc3135cb5cb77bb701205b25e1e9666f11e89a",
+    "new_draws_generated": false,
+    "refit_base_models": false,
+    "refit_censoring": false
+  },
+  "selection_disclosure": "Support and recency were selected after internal sensitivity analyses; fixed-model bootstrap excludes selection uncertainty.",
+  "deployment_changed": false,
+  "ranking_weight": 0.0,
+  "core_source": "config/physv15_ranking_ablation_20260910/rank000_seed_316.yaml",
+  "models": [
+    "DDHIgAN",
+    "Baseline Cox",
+    "PCCox",
+    "DynForest",
+    "DDHIgAN-Pathology",
+    "DDHIgAN-Expanded",
+    "DDHIgAN-CysC-free"
+  ],
+  "expected_prediction_cells": 210,
+  "reused_standard": "physv15_rankzero_standard_20260911",
+  "display_metrics": [
+    "auc_10y",
+    "uno_c_index",
+    "ipcw_ibs_1_10y",
+    "auc_5y",
+    "calibration_mae_10y"
+  ],
+  "variant_difference": "variant minus DDHIgAN",
+  "cysc_free_color": "#F39B7F",
+  "cysc_free_marker": "X"
+}

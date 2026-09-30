@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "standard": "physv15_rankzero_standard_20260911",
+  "status": "COMPUTED_AND_INTEGRATED_IN_WORKING_MANUSCRIPT",
+  "authorization_date": "2026-09-11",
+  "authorization": "User formally sets ranking weight zero in all DDHIgAN variants and requests complete manuscript update",
+  "dataset": "physv15_outcome_recheck_9947_20260908",
+  "release_manifest_sha256": "d2ddd4b402568e4371fda34e23b5135ce7e5a47185ccf72fed5b13e8feb2f20b",
+  "internal_residual_support_years": 11,
+  "event_bins": 22,
+  "interval_width_years": 0.5,
+  "input_time_scale_years": 10,
+  "external_horizons_years": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "query_times_years": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "recency": {
+    "maximum_years": 1,
+    "boundary_inclusive": true,
+    "scope": "evaluation only; all six models share patient eligibility",
+    "definition": "query minus last actual record at or before query; not per-marker freshness"
+  },
+  "risk_set_counts": [
+    9947,
+    9932,
+    8661,
+    7796,
+    7155,
+    6632
+  ],
+  "core_model_reused": true,
+  "new_fits": {
+    "pathology": 5,
+    "expanded": 5
+  },
+  "reused_clinical_models": [
+    "Baseline Cox",
+    "PCCox",
+    "DynForest"
+  ],
+  "training_release": "rankzero_ff9f6abcd33e",
+  "evaluation_release": "rankzero_ff9f6abcd33e",
+  "config_sha256": {
+    "core.yaml": "5323ff9e39525176a49f0fba523dc3bce3162fcc897a646fd3629b75b4e4f8a2",
+    "expanded.yaml": "c1a866800b686c7485d6f0e68a7fb5f2b8502139157b1d97740874cb27ce23da",
+    "pathology.yaml": "1fbeaa97392fb0a0239c626d9e878ce190cac2caa17b9f9705aa89d369a01477"
+  },
+  "bootstrap": {
+    "replicates": 2000,
+    "seed": 316,
+    "shared_draw_sha256": "88222ce77f8cd1ad9afc0ccca3bc3135cb5cb77bb701205b25e1e9666f11e89a",
+    "new_draws_generated": false,
+    "refit_base_models": false,
+    "refit_censoring": false
+  },
+  "selection_disclosure": "Support and recency were selected after internal sensitivity analyses; fixed-model bootstrap excludes selection uncertainty.",
+  "deployment_changed": false,
+  "ranking_weight": 0.0,
+  "core_source": "config/physv15_ranking_ablation_20260910/rank000_seed_316.yaml",
+  "aggregate_sha256": "71f7983b419951c5738a9708f4900693774908e77d738d9d52e512ef64dc058c"
+}

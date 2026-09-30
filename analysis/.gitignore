@@ -1,0 +1,15 @@
+data/
+results/
+*.csv
+*.npy
+*.npz
+*.pkl
+*.rds
+*.pt
+*.pth
+*.ckpt
+*.log
+__pycache__/
+*.py[cod]
+.env
+.Renviron

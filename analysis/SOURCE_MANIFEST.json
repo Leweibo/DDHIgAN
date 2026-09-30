@@ -1,0 +1,345 @@
+{
+  "release": "manuscript-analysis-20260930",
+  "dataset_release_sha256": "d2ddd4b402568e4371fda34e23b5135ce7e5a47185ccf72fed5b13e8feb2f20b",
+  "published_content": "Source code and configuration only; no patient data or training artifacts",
+  "transformations": "Relative data path constants replaced with portable data/ locations. One test of a superseded 15-year candidate configuration is omitted; scientific analysis source is otherwise unchanged.",
+  "files": [
+    {
+      "file": "R/dynforest_query_denominator.R",
+      "source_sha256": "94a239e9c7fe243f8e5ebfc3fe6ee5d5a571f63de12f094d50f753144704e2df",
+      "public_sha256": "94a239e9c7fe243f8e5ebfc3fe6ee5d5a571f63de12f094d50f753144704e2df",
+      "path_constants_changed": false
+    },
+    {
+      "file": "R/predict_arbitrary_visit_dynforest_from_rds.R",
+      "source_sha256": "ccb5ac0b1a4fa108297c40fb18fe5443795bd4e1d86ce4c06622a2aadabee340",
+      "public_sha256": "ccb5ac0b1a4fa108297c40fb18fe5443795bd4e1d86ce4c06622a2aadabee340",
+      "path_constants_changed": false
+    },
+    {
+      "file": "R/predict_pccox_query15.R",
+      "source_sha256": "64c37e9801bf5c7f781db96ec559402269dc8546802c0deaec67c48b3674dd97",
+      "public_sha256": "64c37e9801bf5c7f781db96ec559402269dc8546802c0deaec67c48b3674dd97",
+      "path_constants_changed": false
+    },
+    {
+      "file": "R/query_time_survival.R",
+      "source_sha256": "45a77565374cb118140d6d4b872bdfc7709727c6aa40c35703aecd7b814596d9",
+      "public_sha256": "45a77565374cb118140d6d4b872bdfc7709727c6aa40c35703aecd7b814596d9",
+      "path_constants_changed": false
+    },
+    {
+      "file": "R/run_arbitrary_visit_dynforest.R",
+      "source_sha256": "bdb55eff097e62680fee5c6dcd006aa0e1ac205b369c3157d87be0b778321bf6",
+      "public_sha256": "bdb55eff097e62680fee5c6dcd006aa0e1ac205b369c3157d87be0b778321bf6",
+      "path_constants_changed": false
+    },
+    {
+      "file": "R/run_arbitrary_visit_pccox.R",
+      "source_sha256": "d95697d27e153dd3357afe0a870de99711270ebfe70a69bd7f7042ad70fc6f35",
+      "public_sha256": "d95697d27e153dd3357afe0a870de99711270ebfe70a69bd7f7042ad70fc6f35",
+      "path_constants_changed": false
+    },
+    {
+      "file": "R/utils.R",
+      "source_sha256": "30dd8dc13e02f2c1cd989324aeaaf57e7a8a52a49125466ad5088a216cd16428",
+      "public_sha256": "30dd8dc13e02f2c1cd989324aeaaf57e7a8a52a49125466ad5088a216cd16428",
+      "path_constants_changed": false
+    },
+    {
+      "file": "config/physv15_fixed_rankzero_bootstrap_20260915/run_spec.json",
+      "source_sha256": "c79d8f7375eacf9fb383f7e677b93da44e33422ce50b5e4f36f8d5453b6ad4dc",
+      "public_sha256": "c79d8f7375eacf9fb383f7e677b93da44e33422ce50b5e4f36f8d5453b6ad4dc",
+      "path_constants_changed": false
+    },
+    {
+      "file": "config/physv15_rankzero_sevenmodel_20260911/cysc_free.yaml",
+      "source_sha256": "a3b3788198838305d2aa340c8f314b0ff011cde940e6291b68934685a3b68330",
+      "public_sha256": "ea45b79d2338dcb0d0951fd57a05828daed031d19df5a70cdc5881f48b1a5f68",
+      "path_constants_changed": true
+    },
+    {
+      "file": "config/physv15_rankzero_sevenmodel_20260911/run_spec.json",
+      "source_sha256": "1d64d69a99178d720ec36826582208ce1a8538b6d34f173e45b8ed16ef0f58d8",
+      "public_sha256": "1d64d69a99178d720ec36826582208ce1a8538b6d34f173e45b8ed16ef0f58d8",
+      "path_constants_changed": false
+    },
+    {
+      "file": "config/physv15_rankzero_standard_20260911/core.yaml",
+      "source_sha256": "5323ff9e39525176a49f0fba523dc3bce3162fcc897a646fd3629b75b4e4f8a2",
+      "public_sha256": "c3fb242423b955a529b2a5a03a2c07524d0fedcbb94d0cb73e28142d740d801b",
+      "path_constants_changed": true
+    },
+    {
+      "file": "config/physv15_rankzero_standard_20260911/expanded.yaml",
+      "source_sha256": "c1a866800b686c7485d6f0e68a7fb5f2b8502139157b1d97740874cb27ce23da",
+      "public_sha256": "960aef2bdda2e490ed093df1afa33525b3039ae11115d2da8764661d8d8fe780",
+      "path_constants_changed": true
+    },
+    {
+      "file": "config/physv15_rankzero_standard_20260911/pathology.yaml",
+      "source_sha256": "1fbeaa97392fb0a0239c626d9e878ce190cac2caa17b9f9705aa89d369a01477",
+      "public_sha256": "35cad794e65963aef77879e4bff72416f24dec0e87cf8167a7998e64f7e93a28",
+      "path_constants_changed": true
+    },
+    {
+      "file": "config/physv15_rankzero_standard_20260911/run_spec.json",
+      "source_sha256": "55cfe0cdc4d9ed5b110ce1c29a7c4c02dfe4c89f5a7fb83b0e8fa020c8002778",
+      "public_sha256": "55cfe0cdc4d9ed5b110ce1c29a7c4c02dfe4c89f5a7fb83b0e8fa020c8002778",
+      "path_constants_changed": false
+    },
+    {
+      "file": "config/requirements-seven-model-references.txt",
+      "source_sha256": "2609f43eebc281de50d1c1ac632a6f48224b48550c0279a23549791c287ef6b1",
+      "public_sha256": "2609f43eebc281de50d1c1ac632a6f48224b48550c0279a23549791c287ef6b1",
+      "path_constants_changed": false
+    },
+    {
+      "file": "python/deephit/bootstrap_refit.py",
+      "source_sha256": "d4b01f5a0023bf5464577115355fde74e2a11afe10682177ab29606f35be2075",
+      "public_sha256": "d4b01f5a0023bf5464577115355fde74e2a11afe10682177ab29606f35be2075",
+      "path_constants_changed": false
+    },
+    {
+      "file": "python/deephit/clinical_variable_sets.py",
+      "source_sha256": "af92953fc3d21e0cec86b91bbc94380d99f962853c1cdab07cb6bf8a718d850c",
+      "public_sha256": "af92953fc3d21e0cec86b91bbc94380d99f962853c1cdab07cb6bf8a718d850c",
+      "path_constants_changed": false
+    },
+    {
+      "file": "python/deephit/data_loader.py",
+      "source_sha256": "53e7d57e24fe12b60ed6b532d7beae7d359e8221b30301235f5c840c947bb8bf",
+      "public_sha256": "53e7d57e24fe12b60ed6b532d7beae7d359e8221b30301235f5c840c947bb8bf",
+      "path_constants_changed": false
+    },
+    {
+      "file": "python/deephit/fixed_bootstrap.py",
+      "source_sha256": "cdcd0e7f8832ff3692b68fecb474377a558b90728753d1ba1bf97047604cb1ba",
+      "public_sha256": "cdcd0e7f8832ff3692b68fecb474377a558b90728753d1ba1bf97047604cb1ba",
+      "path_constants_changed": false
+    },
+    {
+      "file": "python/deephit/losses.py",
+      "source_sha256": "98f072c2b1dcb0c1666c46868a0c0551f3b31d4905043f55c7fb818e0289dd36",
+      "public_sha256": "98f072c2b1dcb0c1666c46868a0c0551f3b31d4905043f55c7fb818e0289dd36",
+      "path_constants_changed": false
+    },
+    {
+      "file": "python/deephit/model.py",
+      "source_sha256": "020bebcc842813951c0027f198a87b36481bc10f469f74a515149bb5d84e037b",
+      "public_sha256": "020bebcc842813951c0027f198a87b36481bc10f469f74a515149bb5d84e037b",
+      "path_constants_changed": false
+    },
+    {
+      "file": "python/deephit/predict.py",
+      "source_sha256": "858107ac5e348ce613b9765e839c9213d3cdff568c9f94a6ab4af20c2be5e891",
+      "public_sha256": "858107ac5e348ce613b9765e839c9213d3cdff568c9f94a6ab4af20c2be5e891",
+      "path_constants_changed": false
+    },
+    {
+      "file": "python/deephit/recent_followup.py",
+      "source_sha256": "723ff19bc8e79306864d5496a1906fbaae823c476032ca6fa1ebbb6f5f49af3b",
+      "public_sha256": "723ff19bc8e79306864d5496a1906fbaae823c476032ca6fa1ebbb6f5f49af3b",
+      "path_constants_changed": false
+    },
+    {
+      "file": "python/deephit/refit_pilot.py",
+      "source_sha256": "b1f39cd8601f35fc9e58e688cd1a18c3b2642b332240a1132b5fb75a76f4dadb",
+      "public_sha256": "b1f39cd8601f35fc9e58e688cd1a18c3b2642b332240a1132b5fb75a76f4dadb",
+      "path_constants_changed": false
+    },
+    {
+      "file": "python/deephit/refit_selection.py",
+      "source_sha256": "67ee06905bcad064ab88ab7b8b649bb0080e0c26988743fef6ce36169c51d5d7",
+      "public_sha256": "67ee06905bcad064ab88ab7b8b649bb0080e0c26988743fef6ce36169c51d5d7",
+      "path_constants_changed": false
+    },
+    {
+      "file": "python/deephit/train.py",
+      "source_sha256": "e0f45883e4d07dffe9d8db7a554672d54955399cefb03ed70a2e7c6d35ad72d4",
+      "public_sha256": "e0f45883e4d07dffe9d8db7a554672d54955399cefb03ed70a2e7c6d35ad72d4",
+      "path_constants_changed": false
+    },
+    {
+      "file": "python/evaluation/evaluate_single_model.py",
+      "source_sha256": "88982b8e63ce85c8b7f1d4ec3832b22f82b837bff6fbfee8ceadaca2fafa7377",
+      "public_sha256": "f43b63ebb9268fa16af1f8a715898f50b30d2a1b697bf83dea72284125ff8e4e",
+      "path_constants_changed": true
+    },
+    {
+      "file": "python/evaluation/paired_cluster_bootstrap.py",
+      "source_sha256": "6d156356f870daad2f513ee591fc94777c38c07ade5b1ef103b823e87c4b6bb0",
+      "public_sha256": "6d156356f870daad2f513ee591fc94777c38c07ade5b1ef103b823e87c4b6bb0",
+      "path_constants_changed": false
+    },
+    {
+      "file": "python/evaluation/query12_recency.py",
+      "source_sha256": "427e3dba9910ca270e6ec6ed7e0a2fa87b6f44d71cddb23c3604960d9338a7a9",
+      "public_sha256": "427e3dba9910ca270e6ec6ed7e0a2fa87b6f44d71cddb23c3604960d9338a7a9",
+      "path_constants_changed": false
+    },
+    {
+      "file": "python/evaluation/uno_ibs_cluster_bootstrap.py",
+      "source_sha256": "8724dc352e092fc9498df343a8c25e9f623573f24979ee7678a1ab289ae627bc",
+      "public_sha256": "8724dc352e092fc9498df343a8c25e9f623573f24979ee7678a1ab289ae627bc",
+      "path_constants_changed": false
+    },
+    {
+      "file": "python/scripts/prepare_arbitrary_visit_dynforest.py",
+      "source_sha256": "9fecf71fb3eb5e6e565eeb144788dff9811c438f94b5f5d4581dfc8cab31af41",
+      "public_sha256": "9fecf71fb3eb5e6e565eeb144788dff9811c438f94b5f5d4581dfc8cab31af41",
+      "path_constants_changed": false
+    },
+    {
+      "file": "python/scripts/prepare_pccox_inputs.py",
+      "source_sha256": "f1abf75ac985c07f07135223d9eca0d334dd9202fa75831bc1f163e47a02f34c",
+      "public_sha256": "f1abf75ac985c07f07135223d9eca0d334dd9202fa75831bc1f163e47a02f34c",
+      "path_constants_changed": false
+    },
+    {
+      "file": "python/scripts/prepare_pccox_query15.py",
+      "source_sha256": "42c2cabbb063a347dc106d5eb7f9e62bb1ad51b505d8cd34f8a0c73cf9bad454",
+      "public_sha256": "42c2cabbb063a347dc106d5eb7f9e62bb1ad51b505d8cd34f8a0c73cf9bad454",
+      "path_constants_changed": false
+    },
+    {
+      "file": "python/scripts/run_arbitrary_visit_reanalysis_references.py",
+      "source_sha256": "e63bb92119d06ad227d03bcd9c6a137e00408b766031d9d877780852351b9afc",
+      "public_sha256": "e63bb92119d06ad227d03bcd9c6a137e00408b766031d9d877780852351b9afc",
+      "path_constants_changed": false
+    },
+    {
+      "file": "python/scripts/validate_fixed_rankzero_bootstrap.py",
+      "source_sha256": "f8342c9d8a663c1b5e7fe73ad5f329c38bf9276c328bf3ddb22c940d2ae73fa4",
+      "public_sha256": "f8342c9d8a663c1b5e7fe73ad5f329c38bf9276c328bf3ddb22c940d2ae73fa4",
+      "path_constants_changed": false
+    },
+    {
+      "file": "python/tests/test_fixed_bootstrap.py",
+      "source_sha256": "f3d36bf85077dbecf2131aa432b5a0cfeecd488db74883282a75a3c09214cad1",
+      "public_sha256": "f3d36bf85077dbecf2131aa432b5a0cfeecd488db74883282a75a3c09214cad1",
+      "path_constants_changed": false
+    },
+    {
+      "file": "python/tests/test_query12_recency.py",
+      "source_sha256": "3acad07698a5d360051a559bc6747e187d4704ec10ff0450e85dd0604e1dbaf6",
+      "public_sha256": "3acad07698a5d360051a559bc6747e187d4704ec10ff0450e85dd0604e1dbaf6",
+      "path_constants_changed": false
+    },
+    {
+      "file": "python/tests/test_query_conditioning.py",
+      "source_sha256": "fd79d8615c95ba584c3999e7d8d44cd26feb041258022352f0be92e86bd70329",
+      "public_sha256": "85cc2e86f9509b7a453ce98d5e808c7c19f850292e321ddb22199592b9be6eed",
+      "path_constants_changed": false,
+      "test_adaptation": "Omit test_candidate_preserves_contract, which concerns a superseded 15-year candidate configuration absent from the current release"
+    },
+    {
+      "file": "python/tests/test_sevenmodel_cysc_free.py",
+      "source_sha256": "3a6e1d3bf244fbc44258b85ed2b3aef7f327c6895c29fc9e254446e61964bf62",
+      "public_sha256": "3a6e1d3bf244fbc44258b85ed2b3aef7f327c6895c29fc9e254446e61964bf62",
+      "path_constants_changed": false
+    },
+    {
+      "file": "python/utils/data_utils.py",
+      "source_sha256": "db5e9eb46e95203b7464d7bb4dcb0d0f7919aa3aa0323b9c6dbde20c8ec98431",
+      "public_sha256": "db5e9eb46e95203b7464d7bb4dcb0d0f7919aa3aa0323b9c6dbde20c8ec98431",
+      "path_constants_changed": false
+    },
+    {
+      "file": "python/utils/landmark.py",
+      "source_sha256": "3492fa6ab8c91b60746f97fa0d1ed0922bcca72df346d24491b4241fe897620d",
+      "public_sha256": "3492fa6ab8c91b60746f97fa0d1ed0922bcca72df346d24491b4241fe897620d",
+      "path_constants_changed": false
+    },
+    {
+      "file": "python/utils/metrics.py",
+      "source_sha256": "f597443a2267417362f399978b70e74f6a4feafeb4c34ec99743e2bd3226d47b",
+      "public_sha256": "f597443a2267417362f399978b70e74f6a4feafeb4c34ec99743e2bd3226d47b",
+      "path_constants_changed": false
+    },
+    {
+      "file": "python/utils/probabilities.py",
+      "source_sha256": "0305897b95398232786f5670b96289da4c64c67ab8da4dd25b8f23c15d2029ee",
+      "public_sha256": "0305897b95398232786f5670b96289da4c64c67ab8da4dd25b8f23c15d2029ee",
+      "path_constants_changed": false
+    },
+    {
+      "file": "python/utils/query_conditioning.py",
+      "source_sha256": "c5167f7732b4f604b37bcbcef847d557a1fbdb29d7682b0553aeb13e8f7454e7",
+      "public_sha256": "c5167f7732b4f604b37bcbcef847d557a1fbdb29d7682b0553aeb13e8f7454e7",
+      "path_constants_changed": false
+    },
+    {
+      "file": "python/utils/query_roster.py",
+      "source_sha256": "d9650358202aca20fd7d53727da4ce107eda558d2926933019219010d20dab31",
+      "public_sha256": "d9650358202aca20fd7d53727da4ce107eda558d2926933019219010d20dab31",
+      "path_constants_changed": false
+    },
+    {
+      "file": "python/utils/reproducibility.py",
+      "source_sha256": "68f3e0e58e95639483c6127cc9547acead64d366bb8aec836223d69468ca9733",
+      "public_sha256": "68f3e0e58e95639483c6127cc9547acead64d366bb8aec836223d69468ca9733",
+      "path_constants_changed": false
+    },
+    {
+      "file": "python/utils/survival_data.py",
+      "source_sha256": "8421d8354049bdc64c94e546bb6d0a976164baaa9a89b948eaadab29ceeaf300",
+      "public_sha256": "8421d8354049bdc64c94e546bb6d0a976164baaa9a89b948eaadab29ceeaf300",
+      "path_constants_changed": false
+    },
+    {
+      "file": "python/utils/time_grid.py",
+      "source_sha256": "288ee505acb14334c7cf52a4bad5d1d0b14d2e9650bbe16b6768965c6e6c0c74",
+      "public_sha256": "288ee505acb14334c7cf52a4bad5d1d0b14d2e9650bbe16b6768965c6e6c0c74",
+      "path_constants_changed": false
+    },
+    {
+      "file": "scripts/evaluate_query12_recency.py",
+      "source_sha256": "fa4148a4d251bf642058f282793a29a9a41735e7b645227947c4e8a9904ef965",
+      "public_sha256": "e3e3fe64345fbb285df9da0b110da13325bbb0e1744e51282575dfe729569c8e",
+      "path_constants_changed": true
+    },
+    {
+      "file": "scripts/evaluate_rankzero_standard.py",
+      "source_sha256": "ef4644c8f0afb3191a7866110326dc29d14de60099ac3dc662383c672beb7bd9",
+      "public_sha256": "ef4644c8f0afb3191a7866110326dc29d14de60099ac3dc662383c672beb7bd9",
+      "path_constants_changed": false
+    },
+    {
+      "file": "scripts/evaluate_sevenmodel_standard.py",
+      "source_sha256": "b655c62f86aa659dfee16c546194ccfa5a64f632c1b74fec0b9b2f73e06e815c",
+      "public_sha256": "b655c62f86aa659dfee16c546194ccfa5a64f632c1b74fec0b9b2f73e06e815c",
+      "path_constants_changed": false
+    },
+    {
+      "file": "scripts/run_ddhigan_refit_pilot.py",
+      "source_sha256": "6346de14e68f83f5896677aaca833a51878fbaf0dedd30c8b8706bb8bfef57db",
+      "public_sha256": "6346de14e68f83f5896677aaca833a51878fbaf0dedd30c8b8706bb8bfef57db",
+      "path_constants_changed": false
+    },
+    {
+      "file": "scripts/run_fixed_rankzero_bootstrap.py",
+      "source_sha256": "ac5453feaa850fb23b085cfabafd6719d5fa7543a05ad7c96c0f65c2cb41339b",
+      "public_sha256": "ac5453feaa850fb23b085cfabafd6719d5fa7543a05ad7c96c0f65c2cb41339b",
+      "path_constants_changed": false
+    },
+    {
+      "file": "scripts/run_rankzero_branches.py",
+      "source_sha256": "0f7ccbb8c594898219863a9c9f137cc4d0319398aec95edecbe6e247a926e1b5",
+      "public_sha256": "0f7ccbb8c594898219863a9c9f137cc4d0319398aec95edecbe6e247a926e1b5",
+      "path_constants_changed": false
+    },
+    {
+      "file": "scripts/run_sevenmodel_cysc_free.py",
+      "source_sha256": "a4467c12ac39e193ca1d70f8e67e280144b25ae27c548da002dc6ad191cc55bd",
+      "public_sha256": "a4467c12ac39e193ca1d70f8e67e280144b25ae27c548da002dc6ad191cc55bd",
+      "path_constants_changed": false
+    },
+    {
+      "file": "python/deephit/firstvisit_allhistory.py",
+      "source_sha256": "1f62ef30ae6e009f30a60df5a8f11665f0b923b655cfa301d8af81251144ed3c",
+      "public_sha256": "1f62ef30ae6e009f30a60df5a8f11665f0b923b655cfa301d8af81251144ed3c",
+      "path_constants_changed": false
+    }
+  ]
+}

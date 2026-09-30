@@ -18,6 +18,15 @@ its reported performance does not directly validate this deployment average.
 No additional recalibration or individual confidence interval is supplied.
 The earlier release remains available in Git history.
 
+## Manuscript analysis code
+
+The model-training, preprocessing, seven-model evaluation, and independent
+patient-level refitting source is available in [`analysis/`](analysis/README.md).
+That source release includes scientific configurations, dependency information,
+synthetic verification tests, and file hashes. Clinical data and private training
+artifacts require access through the corresponding authors for collaborative
+research; they are not included in the repository.
+
 ## Run the API
 
 ```bash

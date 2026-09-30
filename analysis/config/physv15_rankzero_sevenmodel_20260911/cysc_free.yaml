@@ -1,0 +1,80 @@
+model:
+  name: ddhigan_cysc_free_physv15_rankzero_sevenmodel_20260911
+  architecture: formal_dynamic_deephit
+  gru_hidden: 64
+  rnn_layers: 1
+  attention_hidden: 32
+  event_hidden:
+  - 128
+  - 64
+  dropout: 0.2
+  max_residual_time: 11.0
+  interval_width: 0.5
+  num_event_bins: 22
+  loss:
+    likelihood: 1.0
+    ranking: 0.0
+    longitudinal: 1.0
+    sigma: 0.1
+    ranking_pairing: original_ddh_exact
+training:
+  batch_size: 32
+  epochs: 500
+  burn_in_epochs: 5
+  lr: 0.0005
+  weight_decay: 0.0001
+  patience: 20
+  device: cuda
+  seed: 316
+  deterministic: true
+  validation_fraction: 0.2
+  num_workers: 0
+  training_landmarks: []
+  include_actual_queries: true
+  max_query_time: 5.0
+  checkpoint_metric: likelihood
+  original_ddh_faithful: true
+  expected_patients: 9947
+data:
+  processed_dir: data/processed/physv15_outcome_recheck_9947_20260908
+  splits_dir: data/splits/physv15_outcome_recheck_9947_20260908
+  snapshot_validation_path: data/processed/physv15_outcome_recheck_9947_20260908/snapshot_validation.json
+  training_confirmation_path: data/processed/physv15_outcome_recheck_9947_20260908/snapshot_training_confirmation.json
+  static_cols:
+  - age_at_biopsy
+  - gender
+  - baseline_CREA
+  - baseline_ALB
+  - baseline_log_PRO24H
+  long_cols:
+  - CREA
+  - ALB
+  - log_PRO24H
+  max_visits: 30
+  min_history_time: 0.0
+  anchor_nearest_t0: true
+  evaluation_landmarks:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  absolute_max_time: 15.0
+  time_anchor: Date_Biopay / biopsy_date
+  event_contract: rechecked kidney failure (ESKD)
+  release_manifest_path: data/processed/physv15_outcome_recheck_9947_20260908/release_manifest.json
+  input_time_scale: 10.0
+  preserve_source_time: true
+  actual_query_end_tolerance: 1.0e-10
+  query_roster_preflight_path: results/physv15_query11_recency1_20260910/run/preflight.json
+output:
+  norm_stats_dir: results/physv15_rankzero_sevenmodel_20260911/ddhigan_cysc_free/norm_stats
+  checkpoint_dir: results/physv15_rankzero_sevenmodel_20260911/ddhigan_cysc_free/checkpoint
+  prediction_dir: results/physv15_rankzero_sevenmodel_20260911/ddhigan_cysc_free/prediction
+  training_dir: results/physv15_rankzero_sevenmodel_20260911/ddhigan_cysc_free/training
+  tensorboard_dir: results/physv15_rankzero_sevenmodel_20260911/ddhigan_cysc_free/tensorboard
+prediction:
+  conditioning: query_survival
+  risk_score_horizon: 10.0
+  external_max_horizon: 10.0
